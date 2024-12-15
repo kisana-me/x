@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show destroy ]
+  before_action :login_only
 
   def index
     @posts = Post

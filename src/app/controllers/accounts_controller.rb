@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: %i[ show ]
   before_action :set_correct_account, only: %i[ edit update ]
+  before_action :login_only, only: %i[ edit update destroy ]
   before_action :logout_only, only: %i[ new create login ]
 
   def index

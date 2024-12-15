@@ -1,5 +1,6 @@
 class ReactionsController < ApplicationController
   before_action :set_post, only: %i[ react ]
+  before_action :login_only
 
   def react
     existing_reaction = @post.reactions.find_by(account: @current_account)
