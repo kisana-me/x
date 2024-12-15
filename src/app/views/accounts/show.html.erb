@@ -8,13 +8,15 @@
     </div>
   <% end %>
   <div class="account-bio">
-    自己紹介：<%= @account.bio %>
+    自己紹介：<%= simple_format(@account.bio) %>
   </div>
   <div class="account-info">
     利用開始：<%= to_kanji_date(@account.created_at) %>
   </div>
 </div>
 
-<% @account.posts.each do |post| %>
+<% @account_posts.each do |post| %>
   <%= render post %>
 <% end %>
+
+<%= button_to "読込機能実装中", root_path, disabled: true %>

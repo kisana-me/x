@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "general_pages#index"
+  get 'terms' => 'general_pages#terms'
+  get 'privacy' => 'general_pages#privacy'
+  get 'contact' => 'general_pages#contact'
 
   # Accounts
   resources :accounts, param: :name_id

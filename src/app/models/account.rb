@@ -5,7 +5,7 @@ class Account < ApplicationRecord
   before_validation :generate_login_password, on: :create
   validates :name,
     format: {
-      with: K_LEGEX,
+      with: S_LINE_LEGEX,
       message: "漢字必須"
     },
     length: {
@@ -14,7 +14,7 @@ class Account < ApplicationRecord
     }
   validates :bio,
     format: {
-      with: K_LEGEX,
+      with: M_LINE_LEGEX,
       message: "漢字必須"
     },
     length: {

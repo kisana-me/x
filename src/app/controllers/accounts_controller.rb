@@ -9,6 +9,12 @@ class AccountsController < ApplicationController
   end
 
   def show
+    @account_posts = Post
+      .where(account: @account, deleted: false)
+      .includes(:account, :replied, :replies, :reactions)
+      .where(accounts: { deleted: false })
+      .order(created_at: :desc)
+      .limit(10)
   end
 
   def new

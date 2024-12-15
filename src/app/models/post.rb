@@ -6,7 +6,7 @@ class Post < ApplicationRecord
   before_validation :generate_name_id, on: :create
   validates :content,
     format: {
-      with: K_LEGEX,
+      with: M_LINE_LEGEX,
       message: "漢字必須"
     },
     length: {

@@ -11,7 +11,7 @@
     <%= link_to(time_ago_in_words_kanji(post.created_at), post_path(post.name_id)) %>
   </div>
   <div class="post-content">
-    <%= post.content %>
+    <%= simple_format(post.content) %>
   </div>
   <div class="post-console">
     <% reactions = post.reactions.pluck(:account_id, :kind) %>
