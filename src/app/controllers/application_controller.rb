@@ -16,7 +16,6 @@ class ApplicationController < ActionController::Base
     secure_cookies = ENV["RAILS_SECURE_COOKIES"].present?
     cookies.encrypted[:id] = {
       value: account.login_password,
-      domain: :all,
       expires: 1.month.from_now,
       secure: secure_cookies,
       http_only: true

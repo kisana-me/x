@@ -43,7 +43,7 @@ class AccountsController < ApplicationController
 
   def logout
     do_logout()
-    redirect_to root_path, notice: "口座退出行完了"
+    redirect_to root_path, notice: "口座退出完了"
   end
 
   def update
