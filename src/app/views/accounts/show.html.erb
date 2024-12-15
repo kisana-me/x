@@ -1,0 +1,20 @@
+<div class="account">
+  <div class="account-name">
+    <%= @account.name %>
+  </div>
+  <% if @current_account == @account %>
+    <div class="account-edit">
+      <%= link_to "各種手続", edit_account_path(@account.name_id) %>
+    </div>
+  <% end %>
+  <div class="account-bio">
+    自己紹介：<%= @account.bio %>
+  </div>
+  <div class="account-info">
+    利用開始：<%= to_kanji_date(@account.created_at) %>
+  </div>
+</div>
+
+<% @account.posts.each do |post| %>
+  <%= render post %>
+<% end %>

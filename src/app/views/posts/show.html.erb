@@ -1,0 +1,32 @@
+<div class="show-post">
+  <div class="post-account">
+    <%= link_to(@post.account.name, account_path(@post.account.name_id)) %>
+  </div>
+  <div class="post-info">
+    <div>
+      <% if(@post.replied) %>
+        <%= link_to("返信", post_path(@post.replied.name_id)) %>
+      <% end %>
+    </div>
+    <%= link_to(to_kanji_date(@post.created_at), post_path(@post.name_id)) %>
+  </div>
+  <div class="post-content">
+    <%= @post.content %>
+  </div>
+  <div class="post-console">
+    <% reactions = @post.reactions.pluck(:account_id, :kind) %>
+    <% current_reaction = reactions.find { |r| r[0] == @current_account.id } %>
+    <% cr = current_reaction ? current_reaction[1] : nil %>
+    <%= button_to("返信 #{@post.replies.size}", new_post_path(), params: {replied: @post.name_id}, method: :get, class: "post-button") %>
+    <%= button_to("良 #{reactions.count { |_, kind| kind == "good" }}", react_path(@post.name_id), params: {kind: "good"}, class: "post-button #{(" post-reacted" if cr == "good")}") %>
+    <%= button_to("可 #{reactions.count { |_, kind| kind == "ok" }}", react_path(@post.name_id), params: {kind: "ok"}, class: "post-button #{(" post-reacted" if cr == "ok")}") %>
+    <%= button_to("不可 #{reactions.count { |_, kind| kind == "bad" }}", react_path(@post.name_id), params: {kind: "bad"}, class: "post-button #{(" post-reacted" if cr == "bad")}") %>
+    <% if @post.account == @current_account %>
+      <%= button_to "投稿削除", @post, method: :delete, class: "post-button" %>
+    <% end %>
+  </div>
+</div>
+
+<% @post.replies.each do |post| %>
+  <%= render post %>
+<% end %>

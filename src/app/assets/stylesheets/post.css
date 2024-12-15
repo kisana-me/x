@@ -1,0 +1,37 @@
+.post {
+  border-bottom: 1px solid #000;
+  padding: 7px;
+  box-sizing: border-box;
+}
+.post-account {
+  font-size: 15px;
+  font-weight: bold;
+}
+.post-account a {
+  text-decoration: none;
+  color: inherit;
+}
+.post-info {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+.post-info a {
+  text-decoration: none;
+  color: inherit;
+}
+.post-console form {
+  display: inline-block;
+}
+
+.show-post {
+  border-bottom: 1px solid #000;
+  padding: 0 0 7px;
+}
+
+.post-button {
+  background: #ffffff;
+}
+.post-reacted {
+  background: #afffd3;
+}

@@ -1,0 +1,12 @@
+<% if instead.errors.any? %>
+  <div style="color: red">
+    <div>
+      <%= to_kanji_number(instead.errors.count) %>個誤入力発見
+    </div>
+    <ul>
+      <% instead.errors.each do |err| %>
+        <li><%= err.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

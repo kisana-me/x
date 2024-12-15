@@ -1,0 +1,11 @@
+<% if @current_account %>
+  <div>
+    <h2>偽中国語会話</h2>
+    <%= link_to("投稿一覧", posts_path) %>
+  </div>
+<% else %>
+  <div>
+    <h2>偽中国語会話</h2>
+    <%= link_to("開始", new_account_path) %>
+  </div>
+<% end %>

@@ -1,0 +1,1 @@
+<%= button_to "読込", load_more_posts_path(offset: offset), params: {offset: offset}, method: :get, id: "load-more", data: { turbo_action: "replace" } %>

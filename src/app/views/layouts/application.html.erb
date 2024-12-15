@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header>
+      <div class="h-left">
+        <%= link_to("得句巣", root_path) %>
+      </div>
+      <div class="h-right">
+        <% if @current_account %>
+          名前：<%= link_to(@current_account.name, account_path(@current_account.name_id)) %>
+        <% else %>
+          <%= link_to('口座：作成・進入', new_account_path) %>
+        <% end %>
+      </div>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+    <% flash.each do |message_type, message| %>
+      <div class="flash <%= message_type %>"><%= message %></div>
+    <% end %>
+    <footer>
+      <div class="f-top">
+        <%= link_to("得句巣", root_path) %>
+      </div>
+      <div class="f-middle">
+        <%= link_to("利用規約") %>
+        <%= link_to("個人情報取扱") %>
+      </div>
+      <div class="f-bottom">
+        <small>著作権：得句巣 全権利保有</small>
+      </div>
+    </footer>
+  </body>
+</html>

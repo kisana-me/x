@@ -1,0 +1,46 @@
+services:
+  app:
+    build: .
+    tty: true
+    stdin_open: true
+    environment:
+      RAILS_ENV: development
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    command: >
+      bash -c "rm -f /app/tmp/pids/server.pid &&
+      rm -f /app/public/assets &&
+      gem cleanup &&
+      bundle install -j4 &&
+      rails s -b 0.0.0.0"
+
+  db:
+    image: mariadb:latest
+    tty: true
+    stdin_open: true
+    environment:
+      TZ: 'Asia/Tokyo'
+      MARIADB_ROOT_PASSWORD: 'mdbroot'
+    volumes:
+      - db-vol:/var/lib/mysql
+    ports:
+      - '3306:3306'
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    tty: true
+    stdin_open: true
+    environment:
+      PMA_HOSTS: 'db'
+    ports:
+      - '8080:80'
+    depends_on:
+      - db
+
+volumes:
+  db-vol:

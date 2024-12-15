@@ -1,0 +1,10 @@
+.account {
+  border-bottom: 1px solid #000;
+  padding: 7px;
+  box-sizing: border-box;
+  margin: 5px 0;
+}
+.account-name {
+  font-size: 20px;
+  font-weight: bold;
+}
