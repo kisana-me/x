@@ -1,10 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "App" %></title>
+    <title><%= full_title(content_for(:title)) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#fff" />
+    <meta name="color-scheme" content="light" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="author" content="kisana" />
+    <meta name="generator" content="amiverse" />
+    <meta name="description" content="次世代中華風電子共同体" />
+    <meta name="keywords" content="中華風, 偽中国語, 漢字" />
+    <meta name="robots" content="index follow" />
+    <meta name="creator" content="kisana" />
+    <meta name="googlebot" content="index follow" />
+    <meta name="publisher" content="amiverse" />
+    <meta name="format-detection" content="email=no,telephone=no,address=no" />
+    <meta property="og:url" content="<%= request.path %>" />
+    <meta property="og:title" content="<%= full_title(content_for(:title)) %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="次世代中華風電子共同体" />
+    <meta property="og:image" content="" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:site_name" content="得句巣" >
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="得句巣" />
+    <meta name="twitter:site:id" content="x.amiverse.net" />
+    <meta name="twitter:title" content="<%= full_title(content_for(:title)) %>" />
+    <meta name="twitter:description" content="次世代中華風電子共同体" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:image:alt" content="" />
+    <meta name="twitter:creator" content="kisana" />
+    <meta name="twitter:creator:id" content="kisana_me" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 

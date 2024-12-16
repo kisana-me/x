@@ -8,3 +8,27 @@
   font-size: 20px;
   font-weight: bold;
 }
+.account-new-button {
+  width: 200px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #ff6129;
+  box-shadow: 0 2px 3px 2px #0002;
+}
+.account-new-button:hover {
+  box-shadow: 0 1px 3px 2px #0001;
+}
+
+.account-new-textfield {
+  width: 200px;
+  box-sizing: border-box;
+  color: #000;
+  background: #fff;
+  border: none;
+  padding: 7px;
+  border-radius: 7px;
+}

@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def full_title(str)
+    base_title = "得句巣"
+    return str.blank? ? base_title : "#{str} | #{base_title}"
+  end
+
   def link_to(name = nil, options = nil, html_options = nil, &block)
     html_options ||= {}
     html_options[:data] ||= {}

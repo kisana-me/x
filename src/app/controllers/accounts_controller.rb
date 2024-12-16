@@ -28,7 +28,7 @@ class AccountsController < ApplicationController
     @account = Account.new(account_params)
     if @account.save
       do_login(@account)
-      redirect_to account_path(@account.name_id), notice: "口座作成完了"
+      redirect_to posts_path(), notice: "口座作成完了"
     else
       flash.now[:info] = "口座作成不可"
       render :new, status: :unprocessable_entity
