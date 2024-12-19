@@ -1,6 +1,6 @@
 services:
   app:
-    build: .
+    image: ruby:3.3.6
     tty: true
     stdin_open: true
     environment:
