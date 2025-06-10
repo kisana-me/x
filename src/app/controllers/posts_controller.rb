@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show destroy ]
-  before_action :login_only
+  before_action :login_only, except: :index
 
   def index
     @posts = Post
@@ -12,20 +12,17 @@ class PostsController < ApplicationController
   end
 
   def load_more
-    offset_post = Post
-      .where(name_id: params[:offset], deleted: false)
-      .joins(:account)
-      .where(accounts: { deleted: false })
-      .first
-    if offset_post.nil?
+    post = Post.find_by(name_id: params[:offset], deleted: false)
+    post = nil if post&.account&.deleted
+    unless post
       render layout: false, turbo_stream: [
         turbo_stream.append("posts", partial: "posts/post", collection: []),
-        turbo_stream.replace("load-more-button", partial: "posts/end_of_posts")
+        turbo_stream.update("load-more-button", partial: "posts/end_of_posts")
       ]
       return
     end
     @posts = Post
-      .where("posts.created_at < ?", offset_post.created_at)
+      .where("posts.created_at < ?", post.created_at)
       .where(deleted: false)
       .joins(:account)
       .where(accounts: { deleted: false })
@@ -34,10 +31,10 @@ class PostsController < ApplicationController
       .limit(20)
     render layout: false, turbo_stream: [
       turbo_stream.append("posts", partial: "posts/post", collection: @posts),
-      if @posts.any?
-        turbo_stream.replace("load-more-button", partial: "posts/load_more_button", locals: { offset: @posts.last.name_id })
+      if @posts.size == 20
+        turbo_stream.update("load-more-button", partial: "posts/load_more_button", locals: { offset: @posts.last.name_id })
       else
-        turbo_stream.replace("load-more-button", partial: "posts/end_of_posts")
+        turbo_stream.update("load-more-button", partial: "posts/end_of_posts")
       end
     ].compact
   end
@@ -48,9 +45,6 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
   end
-
-  # def edit
-  # end
 
   def create
     @post = Post.new(post_params)
@@ -69,6 +63,9 @@ class PostsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  # def edit
+  # end
 
   # def update
   #   if @post.update(post_params)

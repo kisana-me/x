@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <title><%= full_title(content_for(:title)) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#fff" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="color-scheme" content="light" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="author" content="kisana" />
@@ -21,15 +21,15 @@
     <meta property="og:title" content="<%= full_title(content_for(:title)) %>" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="次世代中華風電子共同体" />
-    <meta property="og:image" content="" />
+    <meta property="og:image" content="<%= URI.join(request.base_url, "/x-1.png").to_s %>" />
     <meta property="og:locale" content="ja_JP" />
     <meta property="og:site_name" content="得句巣" >
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="得句巣" />
     <meta name="twitter:site:id" content="x.amiverse.net" />
     <meta name="twitter:title" content="<%= full_title(content_for(:title)) %>" />
     <meta name="twitter:description" content="次世代中華風電子共同体" />
-    <meta name="twitter:image" content="" />
+    <meta name="twitter:image" content="<%= URI.join(request.base_url, "/x-1.png").to_s %>" />
     <meta name="twitter:image:alt" content="" />
     <meta name="twitter:creator" content="kisana" />
     <meta name="twitter:creator:id" content="kisana_me" />
@@ -40,10 +40,7 @@
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="icon" href="/favicon.ico">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>

@@ -1,8 +1,7 @@
 <div>
   <h1>次世代中華風電子共同体</h1>
-  <% if @current_account %>
-    <%= link_to("投稿一覧", posts_path) %>
-  <% else %>
+  <%= link_to("投稿一覧", posts_path) %>
+  <% unless @current_account %>
     <h2>得句巣乃使用開始</h2>
     <p>貴方以下規約同意必須</p>
     <p>使用開始後、貴方規約同意済認識</p>

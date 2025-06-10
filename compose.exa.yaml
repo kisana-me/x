@@ -1,6 +1,6 @@
 services:
   app:
-    image: ruby:3.3.6
+    image: ruby:3.4.4
     tty: true
     stdin_open: true
     env_file:
@@ -17,6 +17,8 @@ services:
       rm -rf /app/public/assets &&
       gem cleanup &&
       bundle install -j4 &&
+      rails db:migrate &&
+      RAILS_ENV=production rails assets:precompile &&
       rails s -b 0.0.0.0"
 
   db:
