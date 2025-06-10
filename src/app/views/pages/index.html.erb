@@ -19,6 +19,7 @@
       </div>
     <% end %>
     <br />
+    <%= button_to "ANYUR続行", oauth_path, method: :post, data: { turbo: false }, style: "display: inline;" %>
     <br />
     <%= link_to("既口座作成済", new_account_path) %>
   <% end %>

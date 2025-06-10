@@ -1,4 +1,4 @@
-class GeneralPagesController < ApplicationController
+class PagesController < ApplicationController
   def index
     if @current_account
     else

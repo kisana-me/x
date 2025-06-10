@@ -22,6 +22,14 @@
 
 <br />
 <br />
+
+<% if @current_account.anyur_id.present? %>
+  <p>ANYUR連携済</p>
+<% else %>
+  <%= button_to "ANYUR連携", oauth_path, method: :post, data: { turbo: false }, style: "display: inline;" %>
+<% end %>
+<br />
+<br />
 <br />
 <br />
 

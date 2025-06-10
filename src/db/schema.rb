@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 3) do
+ActiveRecord::Schema[8.0].define(version: 4) do
   create_table "accounts", charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "name_id", null: false
@@ -19,6 +19,8 @@ ActiveRecord::Schema[8.0].define(version: 3) do
     t.boolean "deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "anyur_id"
+    t.index ["anyur_id"], name: "index_accounts_on_anyur_id", unique: true
     t.index ["login_password"], name: "index_accounts_on_login_password", unique: true
     t.index ["name_id"], name: "index_accounts_on_name_id", unique: true
   end

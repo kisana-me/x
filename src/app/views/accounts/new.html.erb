@@ -22,8 +22,11 @@
 <br />
 <br />
 
-<p>既口座作成済</p>
-
+<h2>既口座作成済</h2>
+<%= button_to "ANYUR続行", oauth_path, method: :post, data: { turbo: false }, style: "display: inline;" %>
+<br />
+又
+<br />
 <%= form_with(url: login_path, method: :post, local: true) do |form| %>
   <% if @login_error %>
     <div style="color: red">

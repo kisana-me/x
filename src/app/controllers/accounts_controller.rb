@@ -62,7 +62,7 @@ class AccountsController < ApplicationController
   end
 
   def destroy
-    if @current_account.update(deleted: true)
+    if @current_account.update(anyur_id: nil, deleted: true)
       redirect_to root_path, notice: "口座削除完了", status: :see_other
     else
       redirect_to root_path, notice: "口座削除不可", status: :see_other

@@ -18,7 +18,10 @@ class PostsController < ApplicationController
       .where(accounts: { deleted: false })
       .first
     if offset_post.nil?
-      render layout: false, turbo_stream: turbo_stream.append("posts", partial: "posts/post", collection: [])
+      render layout: false, turbo_stream: [
+        turbo_stream.append("posts", partial: "posts/post", collection: []),
+        turbo_stream.replace("load-more-button", partial: "posts/end_of_posts")
+      ]
       return
     end
     @posts = Post
@@ -31,8 +34,12 @@ class PostsController < ApplicationController
       .limit(20)
     render layout: false, turbo_stream: [
       turbo_stream.append("posts", partial: "posts/post", collection: @posts),
-      turbo_stream.replace("load-more-button", partial: "posts/load_more_button", locals: { offset: @posts.last&.name_id })
-    ]
+      if @posts.any?
+        turbo_stream.replace("load-more-button", partial: "posts/load_more_button", locals: { offset: @posts.last.name_id })
+      else
+        turbo_stream.replace("load-more-button", partial: "posts/end_of_posts")
+      end
+    ].compact
   end
 
   def show
