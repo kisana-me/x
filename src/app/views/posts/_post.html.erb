@@ -15,7 +15,7 @@
   </div>
   <div class="post-console">
     <% reactions = post.reactions.pluck(:account_id, :kind) %>
-    <% current_reaction = reactions.find { |r| r[0] == @current_account.id } %>
+    <% current_reaction = reactions.find { |r| r[0] == @current_account&.id } %>
     <% cr = current_reaction ? current_reaction[1] : nil %>
     <%= button_to("返信 #{post.replies.size}", new_post_path(), params: {replied: post.name_id}, method: :get, class: "post-button") %>
     <%= button_to("良 #{reactions.count { |_, kind| kind == "good" }}", react_path(post.name_id), params: {kind: "good"}, class: "post-button #{("post-reacted" if cr == "good")}") %>
