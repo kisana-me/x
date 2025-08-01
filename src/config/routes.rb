@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root "pages#index"
-  get "terms" => "pages#terms"
-  get "privacy" => "pages#privacy"
+
+  # Pages
+  get "terms-of-service" => "pages#terms_of_service"
+  get "privacy-policy" => "pages#privacy_policy"
   get "contact" => "pages#contact"
 
   # Accounts

@@ -5,4 +5,13 @@ class PagesController < ApplicationController
       @account = Account.new
     end
   end
+
+  def terms_of_service
+  end
+
+  def privacy_policy
+  end
+
+  def contact
+  end
 end
