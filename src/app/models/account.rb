@@ -1,18 +1,30 @@
 class Account < ApplicationRecord
   has_many :posts
   has_many :reactions
-  before_validation :generate_name_id, on: :create
-  before_validation :generate_login_password, on: :create
+
+  attribute :meta, :json, default: {}
+  enum :status, { normal: 0, locked: 1 }
+
+  before_create :set_aid
+
+  validates :anyur_id,
+    allow_nil: true,
+    uniqueness: { case_sensitive: false }
   validates :name,
+    presence: true,
     format: {
       with: S_LINE_LEGEX,
-      message: "漢字必須"
+      message: "漢字必須",
+      allow_blank: true
     },
-    length: {
-      maximum: 20,
-      too_long: "二十文字以下必須"
-    }
-  validates :bio,
+    length: { in: 1..50, allow_blank: true }
+  validates :name_id,
+    presence: true,
+    length: { in: 5..50, allow_blank: true },
+    format: { with: NAME_ID_REGEX, allow_blank: true },
+    uniqueness: { case_sensitive: false, allow_blank: true }
+  validates :description,
+    allow_blank: true,
     format: {
       with: M_LINE_LEGEX,
       message: "漢字必須"
@@ -20,21 +32,13 @@ class Account < ApplicationRecord
     length: {
       maximum: 100,
       too_long: "百文字以下必須"
-    },
-    allow_blank: true
+    }
+  has_secure_password
+
+  default_scope {
+    where(deleted: false)
+  }
 
   private
 
-  def generate_name_id
-    self.name_id ||= loop do
-      random_id = SecureRandom.alphanumeric(14).downcase
-      break random_id unless self.class.exists?(name_id: random_id)
-    end
-  end
-  def generate_login_password
-    self.login_password ||= loop do
-      random_id = SecureRandom.alphanumeric(14).downcase
-      break random_id unless self.class.exists?(login_password: random_id)
-    end
-  end
 end

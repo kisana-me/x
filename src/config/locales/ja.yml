@@ -5,9 +5,21 @@ ja:
           login_password: "口座進入用固有文字列"
       account:
         name: "名前"
+        name_id: "ID"
         bio: "自己紹介"
       post:
         content: "内容"
+    errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
+        # default
+        blank: "を入力してください"
+        too_short: "は%{count}文字以上で入力してください"
+        too_long: "は%{count}文字以内で入力してください"
+        taken: "は使用できません"
+        confirmation: "が一致しません"
+        invalid: "は正しい形式で入力してください"
+        not_a_number: "は数値で入力してください"
   datetime:
     distance_in_words:
       x_seconds:

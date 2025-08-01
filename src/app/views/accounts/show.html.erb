@@ -1,22 +1,27 @@
+<% content_for :title, "口座拝見" %>
+
 <div class="account">
   <div class="account-name">
     <%= @account.name %>
   </div>
   <% if @current_account == @account %>
     <div class="account-edit">
-      <%= link_to "各種手続", edit_account_path(@account.name_id) %>
+      <%= link_to "各種手続", settings_account_path %>
     </div>
   <% end %>
   <div class="account-bio">
-    自己紹介：<%= simple_format(@account.bio) %>
+    自己紹介：<%= simple_format(@account.description) %>
   </div>
   <div class="account-info">
     利用開始：<%= to_kanji_date(@account.created_at) %>
   </div>
 </div>
 
-<% @account_posts.each do |post| %>
-  <%= render post %>
-<% end %>
+<div class="posts" id="posts">
+  <%= render partial: "posts/post", collection: @posts %>
+</div>
 
-<%= button_to "読込機能実装中", root_path, disabled: true %>
+<div id="load-more-button">
+  <%= button_to "読込機能実装中", root_path, disabled: true %>
+  <%# render partial: "posts/load_more_button", locals: { offset: @posts.last&.name_id } %>
+</div>

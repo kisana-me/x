@@ -1,5 +1,7 @@
 <% content_for :title, "投稿一覧" %>
 
+<h1>投稿一覧</h1>
+
 <%= link_to "作成", new_post_path %>
 
 <div class="posts" id="posts">
@@ -7,5 +9,5 @@
 </div>
 
 <div id="load-more-button">
-  <%= render partial: "posts/load_more_button", locals: { offset: @posts.last&.name_id } %>
+  <%= render partial: "posts/load_more_button", locals: { offset: @posts.last&.aid } %>
 </div>

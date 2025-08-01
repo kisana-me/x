@@ -1,14 +1,14 @@
 <div class="post">
   <div class="post-account">
-    <%= link_to(post.account.name, account_path(post.account.name_id)) %>
+    <%= link_to(post.account.name, account_path(post.account.aid)) %>
   </div>
   <div class="post-info">
     <div>
       <% if(post.replied) %>
-        <%= link_to("返信", post_path(post.replied.name_id)) %>
+        <%= link_to("返信", post_path(post.replied.nameaid_id)) %>
       <% end %>
     </div>
-    <%= link_to(time_ago_in_words_kanji(post.created_at), post_path(post.name_id)) %>
+    <%= link_to(time_ago_in_words_kanji(post.created_at), post_path(post.aid)) %>
   </div>
   <div class="post-content">
     <%= simple_format(post.content) %>
@@ -17,9 +17,9 @@
     <% reactions = post.reactions.pluck(:account_id, :kind) %>
     <% current_reaction = reactions.find { |r| r[0] == @current_account&.id } %>
     <% cr = current_reaction ? current_reaction[1] : nil %>
-    <%= button_to("返信 #{post.replies.size}", new_post_path(), params: {replied: post.name_id}, method: :get, class: "post-button") %>
-    <%= button_to("良 #{reactions.count { |_, kind| kind == "good" }}", react_path(post.name_id), params: {kind: "good"}, class: "post-button #{("post-reacted" if cr == "good")}") %>
-    <%= button_to("可 #{reactions.count { |_, kind| kind == "ok" }}", react_path(post.name_id), params: {kind: "ok"}, class: "post-button #{("post-reacted" if cr == "ok")}") %>
-    <%= button_to("不可 #{reactions.count { |_, kind| kind == "bad" }}", react_path(post.name_id), params: {kind: "bad"}, class: "post-button #{("post-reacted" if cr == "bad")}") %>
+    <%= button_to("返信 #{post.replies.size}", new_post_path(), params: {replied: post.aid}, method: :get, class: "post-button") %>
+    <%= button_to("良 #{reactions.count { |_, kind| kind == "good" }}", react_path, params: {aid: post.aid, kind: "good"}, class: "post-button #{("post-reacted" if cr == "good")}") %>
+    <%= button_to("可 #{reactions.count { |_, kind| kind == "ok" }}", react_path, params: {aid: post.aid, kind: "ok"}, class: "post-button #{("post-reacted" if cr == "ok")}") %>
+    <%= button_to("不可 #{reactions.count { |_, kind| kind == "bad" }}", react_path, params: {aid: post.aid, kind: "bad"}, class: "post-button #{("post-reacted" if cr == "bad")}") %>
   </div>
 </div>

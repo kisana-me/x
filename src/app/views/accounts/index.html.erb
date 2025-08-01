@@ -1,0 +1,13 @@
+<% content_for :title, "口座一覧" %>
+
+<% @accounts.each do |account| %>
+  <div>
+    名前:
+    <%= account.name %>
+  </div>
+  <div>
+    ID:
+    <%= link_to account.name_id, account_path(account.name_id) %>
+  </div>
+  <hr />
+<% end %>

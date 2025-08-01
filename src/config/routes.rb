@@ -7,20 +7,35 @@ Rails.application.routes.draw do
   get "contact" => "pages#contact"
 
   # Accounts
-  resources :accounts, param: :name_id
-  post "login" => "accounts#login"
-  delete "logout" => "accounts#logout"
+  resources :accounts, only: :index
+  get "@:name_id", to: "accounts#show", as: :account
 
   # Posts
-  get "/posts/load" => "posts#load_more", as: "load_more_posts"
-  resources :posts, param: :name_id, except: %i[ edit update ]
+  get "posts/load" => "posts#load_more", as: "load_more_posts"
+  resources :posts, param: :aid, except: %i[ edit update ]
 
   # Reaction
-  post "/react/:name_id" => "reactions#react", as: "react"
+  post "react" => "reactions#react", as: "react"
+
+  # Sessions
+  get "signin" => "sessions#signin"
+  post "signin" => "sessions#post_signin"
+  delete "signout" => "sessions#signout"
+  # resources :sessions, except: [:new, :create], param: :aid
+
+  # Signup
+  get "signup" => "signup#new"
+  post "signup" => "signup#create"
 
   # OAuth
   post "oauth" => "oauth#start"
   get "callback" => "oauth#callback"
+
+  # Settings
+  get "settings" => "settings#index"
+  get "settings/account" => "settings#account"
+  patch "settings/account" => "settings#post_account"
+  delete "settings/leave" => "settings#leave"
 
   # Others
   get "up" => "rails/health#show", as: :rails_health_check

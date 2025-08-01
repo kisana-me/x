@@ -1,8 +1,8 @@
 class ReactionsController < ApplicationController
-  before_action :set_post, only: %i[ react ]
-  before_action :login_only
+  before_action :require_signin
 
   def react
+    @post = Post.find_by(aid: params[:aid])
     existing_reaction = @post.reactions.find_by(account: @current_account)
     if existing_reaction
       if existing_reaction.kind == params[:kind]
@@ -24,16 +24,6 @@ class ReactionsController < ApplicationController
         notice_msg = "評価作成不可" + @reaction.errors.full_messages.to_sentence
       end
     end
-    redirect_to post_path(@post.name_id), notice: notice_msg
-  end
-
-  private
-
-  def set_post
-    @post = Post
-      .where(name_id: params[:name_id], deleted: false)
-      .includes(:account, :replied, :replies)
-      .where(accounts: { deleted: false })
-      .first
+    redirect_to post_path(@post.aid), notice: notice_msg
   end
 end

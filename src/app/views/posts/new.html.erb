@@ -1,4 +1,6 @@
-<% content_for :title, "投稿" %>
+<% content_for :title, "投稿作成" %>
+
+<h1>投稿作成</h1>
 
 <%= form_with(model: @post, params: {replied: params[:replied]}) do |form| %>
   <%= render "shared/error_messages", instead: @post %>

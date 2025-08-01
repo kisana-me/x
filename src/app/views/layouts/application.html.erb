@@ -66,7 +66,7 @@
         <% if @current_account %>
           名前：<%= link_to(@current_account.name, account_path(@current_account.name_id)) %>
         <% else %>
-          <%= link_to('口座：作成・進入', new_account_path) %>
+          <%= link_to('口座：作成・進入', root_path) %>
         <% end %>
       </div>
     </header>

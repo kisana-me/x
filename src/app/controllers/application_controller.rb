@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
   include ErrorsManagement
+  include SessionManagement
 
-  before_action :set_current_account
+  before_action :current_account
+
+  helper_method :admin?
 
   def routing_error
     raise ActionController::RoutingError, params[:path]
@@ -9,38 +12,32 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_current_account
-    if id = cookies.encrypted[:x]
-      @current_account = Account.find_by(login_password: id, deleted: false)
-    else
-      @current_account = nil
-    end
+  def require_signin
+    return if @current_account
+    store_location
+    flash[:alert] = "サインインしてください"
+    redirect_to root_path
   end
 
-  def do_login(account)
-    cookies.encrypted[:x] = {
-      value: account.login_password,
-      domain: :all,
-      tld_length: 3,
-      same_site: :lax,
-      expires: 1.month.from_now,
-      secure: Rails.env.production?,
-      http_only: true
-    }
-    @current_account = account
+  def require_signout
+    return unless @current_account
+    flash[:alert] = "サインイン済みです"
+    redirect_to root_path
   end
 
-  def do_logout
-    cookies.delete(:x)
-    @current_account = nil
+  def require_admin
+    render_404 unless admin?
   end
 
-  def login_only
-    redirect_to root_path, notice: "口座必須" unless @current_account
+  def admin?
+    @current_account&.admin?
   end
 
-  def logout_only
-    redirect_to root_path, notice: "既口座有" if @current_account
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
   end
 
+  def redirect_back_or(default = root_path, **options)
+    redirect_to(session.delete(:forwarding_url) || default, **options)
+  end
 end
