@@ -1,26 +1,10 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  #allow_browser versions: :modern
+  include ErrorsManagement
+
   before_action :set_current_account
 
-  unless Rails.env.development?
-    rescue_from Exception,                      with: :render_500
-    rescue_from ActiveRecord::RecordNotFound,   with: :render_404
-    rescue_from ActionController::RoutingError, with: :render_404
-  end
-
-  # error page
-
-  def render_400
-    render "errors/400", status: :bad_request
-  end
-
-  def render_404
-    render "errors/404", status: :not_found
-  end
-
-  def render_500
-    render "errors/500", status: :internal_server_error
+  def routing_error
+    raise ActionController::RoutingError, params[:path]
   end
 
   private
