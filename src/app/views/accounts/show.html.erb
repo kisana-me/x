@@ -1,27 +1,33 @@
 <% content_for :title, "口座拝見" %>
 
-<div class="account">
-  <div class="account-name">
-    <%= @account.name %>
-  </div>
-  <% if @current_account == @account %>
-    <div class="account-edit">
-      <%= link_to "各種手続", settings_account_path %>
+<% if @account %>
+  <div class="account">
+    <div class="account-name">
+      <%= @account.name %>
     </div>
-  <% end %>
-  <div class="account-bio">
-    自己紹介：<%= simple_format(@account.description) %>
+    <% if @current_account == @account %>
+      <div class="account-edit">
+        <%= link_to "各種手続", settings_account_path %>
+      </div>
+    <% end %>
+    <div class="account-bio">
+      自己紹介：<%= simple_format(@account.description) %>
+    </div>
+    <div class="account-info">
+      利用開始：<%= to_kanji_date(@account.created_at) %>
+    </div>
   </div>
-  <div class="account-info">
-    利用開始：<%= to_kanji_date(@account.created_at) %>
+
+  <div class="posts" id="posts">
+    <%= render partial: "posts/post", collection: @posts %>
   </div>
-</div>
 
-<div class="posts" id="posts">
-  <%= render partial: "posts/post", collection: @posts %>
-</div>
-
-<div id="load-more-button">
-  <%= button_to "読込機能実装中", root_path, disabled: true %>
-  <%# render partial: "posts/load_more_button", locals: { offset: @posts.last&.name_id } %>
-</div>
+  <div id="load-more-button">
+    <%= button_to "読込機能実装中", root_path, disabled: true %>
+    <%# render partial: "posts/load_more_button", locals: { offset: @posts.last&.name_id } %>
+  </div>
+<% else %>
+  <div>
+    口座不明
+  </div>
+<% end %>

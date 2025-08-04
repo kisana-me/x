@@ -6,6 +6,7 @@ class AccountsController < ApplicationController
 
   def show
     @account = Account.find_by(name_id: params[:name_id])
+    return unless @account
     @posts = Post
       .where(account: @account, deleted: false)
       .includes(:account, :replied, :replies, :reactions)

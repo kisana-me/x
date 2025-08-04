@@ -33,11 +33,15 @@ class Account < ApplicationRecord
       maximum: 100,
       too_long: "百文字以下必須"
     }
-  has_secure_password
+  has_secure_password validations: false
 
   default_scope {
     where(deleted: false)
   }
+
+  def admin?
+    self.meta["roles"]&.include?("admin")
+  end
 
   private
 
