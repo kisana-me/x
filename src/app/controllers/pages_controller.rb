@@ -14,4 +14,14 @@ class PagesController < ApplicationController
 
   def contact
   end
+
+  def export
+    data = {}
+    data["account_post"] = JSON.parse(Account.includes(:posts).to_json(include: :posts))
+    data["reaction"] = JSON.parse(Reaction.includes(:account, :post).to_json(include: {
+        account: { only: :name_id },
+        post: { only: :name_id }
+      }))
+    render json: data
+  end
 end

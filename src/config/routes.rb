@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   # Reaction
   post "/react/:name_id" => "reactions#react", as: "react"
 
+  # Export
+  get "export" => "pages#export"
+
   # OAuth
   post "oauth" => "oauth#start"
   get "callback" => "oauth#callback"

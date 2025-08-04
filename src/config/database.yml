@@ -8,25 +8,25 @@ default: &default
 
 development:
   <<: *default
-  database: x_development
+  database: app_development
 
 test:
   <<: *default
-  database: x_test
+  database: app_test
 
 production:
   primary: &primary_production
     <<: *default
-    database: x_production
+    database: app_production
   cache:
     <<: *primary_production
-    database: x_production_cache
+    database: app_production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: x_production_queue
+    database: app_production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: x_production_cable
+    database: app_production_cable
     migrations_paths: db/cable_migrate
