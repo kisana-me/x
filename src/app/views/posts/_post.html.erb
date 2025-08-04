@@ -5,7 +5,7 @@
   <div class="post-info">
     <div>
       <% if(post.replied) %>
-        <%= link_to("返信", post_path(post.replied.nameaid_id)) %>
+        <%= link_to("返信", post_path(post.replied.aid)) %>
       <% end %>
     </div>
     <%= link_to(time_ago_in_words_kanji(post.created_at), post_path(post.aid)) %>
