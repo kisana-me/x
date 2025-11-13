@@ -1,14 +1,47 @@
 ja:
   activerecord:
+    models:
+      account: "口座"
+      session: "滞在"
+      post: "投稿"
+      reaction: "反応"
     attributes:
       application:
-          login_password: "口座進入用固有文字列"
+        login_password: "口座進入用固有文字列"
       account:
+        aid: "固有識別子"
         name: "名前"
-        name_id: "ID"
-        bio: "自己紹介"
+        name_id: "識別子"
+        description: "自己紹介"
+        birthdate: "生年月日"
+        email: "電子郵便"
+        email_verified: "電子郵便確認可否"
+        visibility: "公開状態"
+        password: "暗証言葉"
+        password_confirmation: "暗証言葉確認"
+        status: "状態"
+      session:
+        account: "口座"
+        aid: "固有識別子"
+        name: "名前"
+        status: "状態"
       post:
+        account: "口座"
+        post: "返信先投稿"
         content: "内容"
+        status: "状態"
+    enums:
+      account:
+        visibility:
+          closed: "非公開"
+          limited: "限定公開"
+          opened: "公開"
+          followers_only: "フォロワーのみ"
+          group_only: "グループのみ"
+        status:
+          normal: "通常"
+          locked: "停止中"
+          deleted: "削除済み"
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -20,6 +53,15 @@ ja:
         confirmation: "が一致しません"
         invalid: "は正しい形式で入力してください"
         not_a_number: "は数値で入力してください"
+  general:
+    subscription:
+      status:
+        expired: "期限切れ"
+        unknown: "不明"
+        basic: "ベーシック"
+        plus: "プラス"
+        premium: "プレミアム"
+        luxury: "ラグジュアリー"
   datetime:
     distance_in_words:
       x_seconds:
