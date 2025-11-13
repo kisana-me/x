@@ -3,7 +3,7 @@ file_path = Rails.root.join("data.json")
 data = JSON.parse(File.read(file_path))
 
 # アカウント読み込み
-data.find{|i| i["type"] == "table" && i["name"] == "accounts"}["data"].each do |d|
+data.find { |i| i["type"] == "table" && i["name"] == "accounts" }["data"].each do |d|
   Account.create!(
     name: d["name"],
     name_id: d["name_id"],
@@ -14,7 +14,7 @@ data.find{|i| i["type"] == "table" && i["name"] == "accounts"}["data"].each do |
 end
 
 # 投稿読み込み
-data.find{|i| i["type"] == "table" && i["name"] == "posts"}["data"].each do |d|
+data.find { |i| i["type"] == "table" && i["name"] == "posts" }["data"].each do |d|
   Post.create!(
     account_id: d["account_id"],
     post_id: d["post_id"],
@@ -26,7 +26,7 @@ data.find{|i| i["type"] == "table" && i["name"] == "posts"}["data"].each do |d|
 end
 
 # リアクション読み込み
-data.find{|i| i["type"] == "table" && i["name"] == "reactions"}["data"].each do |d|
+data.find { |i| i["type"] == "table" && i["name"] == "reactions" }["data"].each do |d|
   Reaction.create!(
     account_id: d["account_id"],
     post_id: d["post_id"],

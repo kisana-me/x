@@ -6,6 +6,6 @@ class Reaction < ApplicationRecord
   validates :account_id,
     uniqueness: {
       scope: :post_id,
-      message: '評価既存在'
+      message: "評価既存在"
     }
 end

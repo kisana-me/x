@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :account
-  belongs_to :replied, class_name: 'Post', optional: true, foreign_key: 'post_id'
-  has_many :replies, class_name: 'Post', foreign_key: 'post_id'
+  belongs_to :replied, class_name: "Post", optional: true, foreign_key: "post_id"
+  has_many :replies, class_name: "Post", foreign_key: "post_id"
   has_many :reactions
 
   attribute :meta, :json, default: -> { {} }
@@ -14,12 +14,12 @@ class Post < ApplicationRecord
     presence: true,
     length: {
       maximum: 200,
-      too_long: '二百文字以下必須',
+      too_long: "二百文字以下必須",
       allow_blank: true
     },
     format: {
       with: M_LINE_LEGEX,
-      message: '漢字必須',
+      message: "漢字必須",
       allow_blank: true
     }
 
@@ -34,7 +34,7 @@ class Post < ApplicationRecord
     recent_count = Post
       .where(account: account)
       .includes(:posts)
-      .where('posts.created_at >= ?', 1.day.ago)
+      .where("posts.created_at >= ?", 1.day.ago)
       .count
     max_count = 5
     case account.subscription_plan

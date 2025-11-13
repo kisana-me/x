@@ -7,7 +7,7 @@ class SignupController < ApplicationController
 
   def create
     @account = Account.new(account_params)
-    @account.meta['subscription'] = session[:oauth_signup]&.dig('subscription')
+    @account.meta["subscription"] = session[:oauth_signup]&.dig("subscription")
     @account.name_id = SecureRandom.base36(14) if @account.name_id.blank?
 
     if @account.save
@@ -15,16 +15,16 @@ class SignupController < ApplicationController
       if session[:oauth_signup].present?
         OauthAccount.create!(
           account: @account,
-          provider: session[:oauth_signup]['provider'],
-          uid: session[:oauth_signup]['uid'],
-          access_token: session[:oauth_signup]['access_token'],
-          refresh_token: session[:oauth_signup]['refresh_token'],
-          expires_at: session[:oauth_signup]['expires_at'],
-          fetched_at: session[:oauth_signup]['fetched_at']
+          provider: session[:oauth_signup]["provider"],
+          uid: session[:oauth_signup]["uid"],
+          access_token: session[:oauth_signup]["access_token"],
+          refresh_token: session[:oauth_signup]["refresh_token"],
+          expires_at: session[:oauth_signup]["expires_at"],
+          fetched_at: session[:oauth_signup]["fetched_at"]
         )
         session.delete(:oauth_signup)
       end
-      redirect_to root_path, notice: '登録完了'
+      redirect_to root_path, notice: "登録完了"
     else
       render :new
     end
