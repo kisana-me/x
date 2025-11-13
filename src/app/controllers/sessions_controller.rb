@@ -8,22 +8,22 @@ class SessionsController < ApplicationController
   end
 
   def post_signin
-    @account = Account.new(name_id: params[:signin][:name_id], password: params[:signin][:password])
-    account = Account.find_by(name_id: params[:signin][:name_id])
-    if account && account.authenticate(password: params[:signin][:password])
+    @account = Account.new(params.expect(signin: [:name_id, :password]))
+    account = Account.is_normal.find_by(name_id: params[:signin][:name_id])
+    if account && account.authenticate(params[:signin][:password])
       sign_in(account)
-      redirect_back_or posts_path, notice: "口座進入完了"
+      redirect_back_or posts_path, notice: '口座進入完了'
     else
-      @account.errors.add(:base, "IDまたはPasswordが違います")
-      render :signin, status: :unprocessable_entity, alert: "口座進入不可"
+      @account.errors.add(:base, :invalid_id_or_pw)
+      render :signin, status: :unprocessable_entity, alert: '口座進入不可'
     end
   end
 
   def signout
     if sign_out
-      redirect_to root_path, notice: "口座退出完了"
+      redirect_to root_path, notice: '口座退出完了'
     else
-      redirect_to root_path, alert: "口座退出不可"
+      redirect_to root_path, alert: '口座退出不可'
     end
   end
 
@@ -41,7 +41,7 @@ class SessionsController < ApplicationController
 
   def update
     if @session.update!(session_params)
-      redirect_to session_path(@session.token_lookup), notice: "セッションを更新しました"
+      redirect_to session_path(@session.token_lookup), notice: 'セッションを更新しました'
     else
       render :edit
     end
@@ -49,7 +49,7 @@ class SessionsController < ApplicationController
 
   def destroy
     @session.update(deleted: true)
-    redirect_to sessions_path, notice: "セッションを削除しました"
+    redirect_to sessions_path, notice: 'セッションを削除しました'
   end
 
   private

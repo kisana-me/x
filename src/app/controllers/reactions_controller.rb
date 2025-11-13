@@ -24,6 +24,10 @@ class ReactionsController < ApplicationController
         notice_msg = "評価作成不可" + @reaction.errors.full_messages.to_sentence
       end
     end
-    redirect_to post_path(@post.aid), notice: notice_msg
+    flash.now[:notice] = notice_msg
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to post_path(@post.aid), notice: notice_msg }
+    end
   end
 end

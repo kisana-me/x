@@ -73,9 +73,9 @@
     <main>
       <%= yield %>
     </main>
-    <% flash.each do |message_type, message| %>
-      <div class="flash <%= message_type %>"><%= message %></div>
-    <% end %>
+    <div id="flash">
+      <%= render "shared/flash" %>
+    </div>
     <footer>
       <div class="f-top">
         <%= link_to("得句巣", root_path) %>

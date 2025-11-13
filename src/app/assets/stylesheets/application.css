@@ -55,13 +55,3 @@ footer {
   color: #ff6129;
   text-decoration: none;
 }
-
-.flash {
-  position: fixed;
-  right: 10px;
-  bottom: 20px;
-  background: #9fdeff;
-  box-sizing: border-box;
-  padding: 7px;
-  border-radius: 7px;
-}

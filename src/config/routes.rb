@@ -28,8 +28,8 @@ Rails.application.routes.draw do
   post "signup" => "signup#create"
 
   # OAuth
-  post "oauth" => "oauth#start"
-  get "callback" => "oauth#callback"
+  post "oauth/start" => "oauth#start"
+  get "oauth/callback" => "oauth#callback"
 
   # Settings
   get "settings" => "settings#index"

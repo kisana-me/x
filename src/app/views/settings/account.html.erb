@@ -19,6 +19,22 @@
     <%= form.label :description, style: "display: block" %>
     <%= form.text_area :description %>
   </div>
+
+  <hr />
+
+  <div>暗証言葉追加・変更</div>
+  <div>暗証言葉登録有無: <%= @current_account.password_digest.blank? ? "無" : "有" %></div>
+  <div>
+    <%= form.label :password, style: "display: block" %>
+    <%= form.text_field :password %>
+  </div>
+  <div>
+    <%= form.label :password_confirmation, style: "display: block" %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+
+  <hr />
+
   <div>
     <%= form.submit '更新' %>
   </div>
@@ -28,13 +44,13 @@
 <br />
 
 <h2>ANYUR連携</h2>
-<% if @current_account.anyur_id.present? %>
+<% if @current_account.valid_anyur_account.present? %>
   <p>ANYUR連携済</p>
-  plan:<%= @current_account.meta.dig("subscription", "plan") || "unknown" %>
+  区分: <%= I18n.t("general.subscription.status.#{@current_account.subscription_plan}") %>
 <% else %>
   <p>ANYUR未連携</p>
-  <%= button_to "ANYUR連携", oauth_path, method: :post, data: { turbo: false }, style: "display: inline;" %>
-  plan: basic
+  <%= button_to "ANYUR連携", oauth_start_path, method: :post, data: { turbo: false }, style: "display: inline;" %>
+  区分: ベーシック
 <% end %>
 
 <br />

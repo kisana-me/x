@@ -1,9 +1,6 @@
 class PagesController < ApplicationController
   def index
-    if @current_account
-    else
-      @account = Account.new
-    end
+    @account = Account.new
   end
 
   def terms_of_service

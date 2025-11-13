@@ -2,9 +2,10 @@ class Account < ApplicationRecord
   has_many :sessions
   has_many :posts
   has_many :reactions
+  has_many :oauth_accounts
 
   attribute :meta, :json, default: -> { {} }
-  enum :visibility, { closed: 0, limited: 1, opened: 2 }
+  enum :visibility, { closed: 0, limited: 1, opened: 2 }, default: :opened
   enum :status, { normal: 0, locked: 1, deleted: 2 }
 
   before_create :set_aid
@@ -52,6 +53,10 @@ class Account < ApplicationRecord
 
     plan = meta.dig('subscription', 'plan')
     plan&.to_sym || :unknown
+  end
+
+  def valid_anyur_account
+    oauth_accounts.find_by(provider: :anyur, status: :normal)
   end
 
   def admin?

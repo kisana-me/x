@@ -53,6 +53,8 @@ ja:
         confirmation: "が一致しません"
         invalid: "は正しい形式で入力してください"
         not_a_number: "は数値で入力してください"
+        # custom
+        invalid_id_or_pw: "識別子又暗証言葉違"
   general:
     subscription:
       status:

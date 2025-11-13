@@ -15,13 +15,13 @@ class ApplicationController < ActionController::Base
   def require_signin
     return if @current_account
     store_location
-    flash[:alert] = "サインインしてください"
+    flash[:alert] = '口座進入必須'
     redirect_to root_path
   end
 
   def require_signout
     return unless @current_account
-    flash[:alert] = "サインイン済みです"
+    flash[:alert] = '口座進入済'
     redirect_to root_path
   end
 

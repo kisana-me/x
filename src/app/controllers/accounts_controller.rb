@@ -1,22 +1,22 @@
 class AccountsController < ApplicationController
-
   def index
-    @accounts = Account.all
+    @accounts = Account
+      .is_normal
+      .is_opened
+      .order(created_at: :desc).limit(20)
   end
 
   def show
-    @account = Account.find_by(name_id: params[:name_id])
-    return unless @account
-    @posts = Post
-      .where(account: @account, deleted: false)
+    @account = Account
+      .is_normal
+      .is_opened
+      .find_by(name_id: params[:name_id])
+    return render_404 unless @account
+
+    @posts = @account.posts
+      .is_normal
       .includes(:account, :replied, :replies, :reactions)
       .order(created_at: :desc)
       .limit(10)
-  end
-
-  private
-
-  def account_params
-    params.expect(account: [ :name, :name_id, :description ])
   end
 end
