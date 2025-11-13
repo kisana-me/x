@@ -1,29 +1,37 @@
-# migration1
+# migration2
 file_path = Rails.root.join("data.json")
 data = JSON.parse(File.read(file_path))
-data["account_post"].each do |d|
-  account = Account.create!(
+
+# アカウント読み込み
+data.find{|i| i["type"] == "table" && i["name"] == "accounts"}["data"].each do |d|
+  Account.create!(
     name: d["name"],
     name_id: d["name_id"],
     description: d["bio"],
-    anyur_id: d["anyur_id"],
     created_at: d["created_at"],
     updated_at: d["updated_at"]
   )
-  d["posts"].each do |p|
-    Post.create!(
-      aid: p["name_id"],
-      account: account,
-      content: p["content"],
-      created_at: p["created_at"],
-      updated_at: p["updated_at"]
-    )
-  end
 end
-data["reaction"].each do |r|
+
+# 投稿読み込み
+data.find{|i| i["type"] == "table" && i["name"] == "posts"}["data"].each do |d|
+  Post.create!(
+    account_id: d["account_id"],
+    post_id: d["post_id"],
+    aid: d["name_id"],
+    content: d["content"],
+    created_at: d["created_at"],
+    updated_at: d["updated_at"]
+  )
+end
+
+# リアクション読み込み
+data.find{|i| i["type"] == "table" && i["name"] == "reactions"}["data"].each do |d|
   Reaction.create!(
-    account: Account.find_by(name_id: r["account"]["name_id"]),
-    post: Post.find_by(aid: r["post"]["name_id"]),
-    kind: r["kind"]
+    account_id: d["account_id"],
+    post_id: d["post_id"],
+    kind: d["kind"].to_i,
+    created_at: d["created_at"],
+    updated_at: d["updated_at"]
   )
 end
