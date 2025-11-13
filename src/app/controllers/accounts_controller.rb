@@ -3,7 +3,8 @@ class AccountsController < ApplicationController
     @accounts = Account
       .is_normal
       .is_opened
-      .order(created_at: :desc).limit(20)
+      .order(created_at: :desc)
+      .limit(20)
   end
 
   def show

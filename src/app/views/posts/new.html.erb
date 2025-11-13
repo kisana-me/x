@@ -2,18 +2,16 @@
 
 <h1>投稿作成</h1>
 
-<%= form_with(model: @post, params: {replied: params[:replied]}) do |form| %>
+<%= form_with(model: @post, params: {replied: params[:replied]}, class: "ctmf") do |form| %>
   <%= render "shared/error_messages", instead: @post %>
   <% if params[:replied] %>
-    <div>返信</div>
+    <p style="color: #ff5000;">返信中</p>
     <%= form.hidden_field :replied, value: params[:replied] %>
   <% end %>
-
   <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.textarea :content %>
+    <%= form.label :content %>
+    <%= form.text_area :content %>
   </div>
-
   <div>
     <%= form.submit "投稿" %>
   </div>

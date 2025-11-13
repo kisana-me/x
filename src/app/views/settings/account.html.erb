@@ -2,39 +2,29 @@
 
 <h1>口座設定</h1>
 
-<%= button_to "口座退出", signout_path, method: :delete, data: { turbo: false }, style: "display: inline;" %>
-<br />
-
-<%= form_with(model: @account, url: settings_account_path, data: { turbo: false }) do |form| %>
+<h2>基本情報</h2>
+<%= form_with(model: @account, url: settings_account_path, method: :patch, class: "ctmf", data: { turbo: false }) do |form| %>
   <%= render("shared/error_messages", instead: @account) %>
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
   <div>
-    <%= form.label :name_id, style: "display: block" %>
+    <%= form.label :name_id %>
     <%= form.text_field :name_id %>
   </div>
   <div>
-    <%= form.label :description, style: "display: block" %>
+    <%= form.label :description %>
     <%= form.text_area :description %>
   </div>
-
-  <hr />
-
-  <div>暗証言葉追加・変更</div>
-  <div>暗証言葉登録有無: <%= @current_account.password_digest.blank? ? "無" : "有" %></div>
   <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.text_field :password %>
+    <%= form.label :password %> <small>（空白時変更無）</small>
+    <%= form.password_field :password, data: { controller: "ctmf-password" } %>
   </div>
   <div>
-    <%= form.label :password_confirmation, style: "display: block" %>
-    <%= form.password_field :password_confirmation %>
+    <%= form.label :password_confirmation %> <small>（空白時変更無）</small>
+    <%= form.password_field :password_confirmation, data: { controller: "ctmf-password" } %>
   </div>
-
-  <hr />
-
   <div>
     <%= form.submit '更新' %>
   </div>
@@ -43,17 +33,39 @@
 <br />
 <br />
 
-<h2>ANYUR連携</h2>
-<% if @current_account.valid_anyur_account.present? %>
-  <p>ANYUR連携済</p>
-  区分: <%= I18n.t("general.subscription.status.#{@current_account.subscription_plan}") %>
-<% else %>
-  <p>ANYUR未連携</p>
-  <%= button_to "ANYUR連携", oauth_start_path, method: :post, data: { turbo: false }, style: "display: inline;" %>
-  区分: ベーシック
-<% end %>
+<div>
+  <h2>ANYUR連携</h2>
+  <% if @current_account.valid_anyur_account.present? %>
+    <p>
+      ANYUR連携済<br />
+      区分: <%= I18n.t("general.subscription.status.#{@current_account.subscription_plan}") %>
+    </p>
+  <% else %>
+    <p>
+      ANYUR未連携<br />
+      区分: ベーシック
+    </p>
+  <% end %>
+  <%= button_to "ANYUR連携", oauth_start_path, method: :post, class: "ctmf-button", data: { turbo: false } %>
+</div>
 
 <br />
 <br />
 
-<%= button_to "口座削除", settings_leave_path, method: :delete, data: { turbo: false }, style: "display: inline;" %>
+<div>
+  <h2>暗証言葉</h2>
+  <div>暗証言葉登録有無: <%= @current_account.password_digest.blank? ? "無" : "有" %></div>
+</div>
+
+<br />
+<br />
+
+<div>
+  <h2>口座操作</h2>
+  <%= button_to "口座退出", signout_path, method: :delete, class: "ctmf-button", data: { turbo: false } %>
+  <br />
+  <br />
+  <%= button_to "口座削除", settings_leave_path, method: :delete, class: "ctmf-button", data: { turbo: false } %>
+  <br />
+  <br />
+</div>

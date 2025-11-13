@@ -2,19 +2,17 @@
 
 <h1>既存口座進入</h1>
 
-<%= form_with(model: @account, scope: :signin, url: signin_path, method: :post, data: { turbo: false }) do |form| %>
+<%= form_with(model: @account, scope: :signin, url: signin_path, method: :post, class: "ctmf", data: { turbo: false }) do |form| %>
   <%= render "shared/error_messages", instead: @account %>
   <div>
-    <%= form.label :name_id, style: "display: block" %>
-    <%= form.text_field :name_id, class: "account-new-textfield" %>
+    <%= form.label :name_id %>
+    <%= form.text_field :name_id %>
   </div>
-  <br />
   <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.password_field :password, value: @account.password, class: "account-new-textfield" %>
+    <%= form.label :password %>
+    <%= form.password_field :password, value: @account.password, data: { controller: "ctmf-password" } %>
   </div>
-  <br />
   <div>
-    <%= form.submit "進入", class: "account-new-button" %>
+    <%= form.submit "進入" %>
   </div>
 <% end %>

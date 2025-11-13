@@ -1,17 +1,15 @@
-<div>
-  <h1>次世代中華風電子共同体</h1>
-  <%= link_to("投稿一覧", posts_path) %>
+<h1>次世代中華風電子共同体</h1>
+<%= link_to("投稿一覧", posts_path) %>
+<br /><br />
+<%= image_tag "/x-1.png", style: "width: 100%" %>
+<% if @current_account %>
+  <h2>口座進入済</h2>
+  <%= link_to("保有口座画面", account_path(@current_account.name_id)) %>
+<% else %>
+  <h2>口座進入</h2>
+  <%= link_to("新規口座進入", signup_path) %>
   <br /><br />
-  <%= image_tag "/x-1.png", style: "width: 100%" %>
-  <% if @current_account %>
-    <h2>口座進入済</h2>
-    <%= link_to("保有口座画面", account_path(@current_account.name_id)) %>
-  <% else %>
-    <h2>口座進入</h2>
-    <%= link_to("新規口座進入", signup_path) %>
-    <br /><br />
-    <%= link_to("既存口座進入", signin_path) %>
-    <br /><br />
-    <%= button_to "ANYUR続行", oauth_start_path, method: :post, data: { turbo: false }, style: "display: inline;" %>
-  <% end %>
-</div>
+  <%= link_to("既存口座進入", signin_path) %>
+  <br /><br />
+  <%= button_to "ANYUR続行", oauth_start_path, method: :post, class: "ctmf-button", data: { turbo: false } %>
+<% end %>
